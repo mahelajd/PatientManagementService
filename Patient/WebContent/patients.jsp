@@ -1,42 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="com.Patient"%>
 
-<% 
-	
-	
-	if (request.getParameter("patientName") != null)  
-	{  
-		Patient patientObj = new Patient();   
-		String stsMsg = ""; 
-		
-		if(request.getParameter("hidPatientIDSave") == "")
-		{
-	
-			stsMsg = patientObj.insertPatients(request.getParameter("patientName"),     
-											request.getParameter("patientAddress"),     
-											request.getParameter("patientPhone"),        
-											request.getParameter("patientEmail"));  
-		}
-		else
-		{
-			stsMsg = patientObj.updatePatients(request.getParameter("hidPatientIDSave"),
-					 request.getParameter("patientName"),
-					 request.getParameter("patientAddress"),
-					 request.getParameter("patientPhone"),
-					 request.getParameter("patientEmail")); 
-		}
-	
-		session.setAttribute("statusMsg", stsMsg);
-}
-
-	if (request.getParameter("hidPatientIDDelete") != null)
-	{
-		Patient patientObj = new Patient();
-		String stsMsg = patientObj.deletePatients(request.getParameter("hidPatientIDDelete"));
-		session.setAttribute("statusMsg", stsMsg);
-	} 
-%>    
-
 <!DOCTYPE html> 
 <html> 
 <head> 
@@ -67,10 +31,12 @@
 		</div>
 		<div id=alertError class="alert alert-danger"></div>
 		<br>
+		<div id = "divPatientGrid"> 
 		<%   
 			 Patient patientObj = new Patient(); 
 			 out.print(patientObj.readPatients());
 		%> 
+		</div>
 		</div>
 	</div>
 </div>
